@@ -1,0 +1,11 @@
+D:\UEH\Internship\Demo\service\bin\Debug\service.deps.json
+D:\UEH\Internship\Demo\service\bin\Debug\service.runtimeconfig.json
+D:\UEH\Internship\Demo\service\bin\Debug\service.runtimeconfig.dev.json
+D:\UEH\Internship\Demo\service\bin\Debug\appsettings.Development.json
+D:\UEH\Internship\Demo\service\bin\Debug\appsettings.json
+D:\UEH\Internship\Demo\service\bin\Debug\service.exe
+D:\UEH\Internship\Demo\service\bin\Debug\service.dll
+D:\UEH\Internship\Demo\service\bin\Debug\service.pdb
+D:\UEH\Internship\Demo\service\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
+D:\UEH\Internship\Demo\service\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+D:\UEH\Internship\Demo\service\obj\Debug\docker-compose.dcproj.CopyComplete

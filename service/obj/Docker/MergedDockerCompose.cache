@@ -1,0 +1,16 @@
+services:
+  service:
+    build:
+      context: D:\UEH\Internship\Demo\service
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: service
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\dangc\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\dangc\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
