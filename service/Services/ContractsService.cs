@@ -21,7 +21,7 @@ namespace service.Services
             return result;
         }
 
-        public async Task<List<Contracts>> Search(string keyword)
+        public async Task<List<Contracts>> Search(string keyword = "")
         {
             if (keyword == null)
             {
@@ -34,9 +34,9 @@ namespace service.Services
             return result;
         }
 
-        public async Task<Contracts> Get(string id)
+        public async Task<Contracts> Get(string id = "")
         {
-            var result = await DbContext.Contracts.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+            var result = await DbContext.Contracts.Where(x => x.Id.Equals(id)).Include(x => x.ContractsCovers).FirstOrDefaultAsync();
 
             result.CarBrandText = DbContext.MasterDatas.Where(x => x.Id.Equals(result.CarBrand)).FirstOrDefault().Name;
             result.CarModelText = DbContext.MasterDatas.Where(x => x.Id.Equals(result.CarModel)).FirstOrDefault().Name;

@@ -28,6 +28,14 @@ namespace service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:3000");
+                    });
+            });
             services.AddDbContext<demoContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("demoContext")));
         }
@@ -39,6 +47,8 @@ namespace service
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

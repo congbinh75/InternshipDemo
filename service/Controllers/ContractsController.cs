@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using service.Models;
 using service.Services;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace service.Controllers
 {
-    [Route("[controller]/[action]")]
     [ApiController]
     public class ContractsController : ControllerBase
     {
@@ -17,24 +17,31 @@ namespace service.Controllers
         }
 
         [HttpGet]
+        [Route("contracts")]
         public async Task<IActionResult> Get()
         {
             var result = await contractsService.Get();
             return new ObjectResult(result);
         }
 
-        [HttpGet("{keyword}")]
+        [HttpGet]
+        [Route("contracts/search")]
         public async Task<IActionResult> Search(string keyword)
         {
             var result = await contractsService.Search(keyword);
             return new ObjectResult(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("contracts/get/{id}")]
         public async Task<IActionResult> Get(string id)
         {
             var result = await contractsService.Get(id);
-            return new ObjectResult(result);
+            var jsonData = JsonConvert.SerializeObject(result, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            return new ObjectResult(jsonData);
         }
     }
 }
