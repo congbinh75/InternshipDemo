@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace service.Models
 {
@@ -27,5 +28,10 @@ namespace service.Models
         public virtual MasterDatas CarBrandNavigation { get; set; }
         public virtual MasterDatas CarModelNavigation { get; set; }
         public virtual ICollection<ContractsCovers> ContractsCovers { get; set; }
+        
+        [NotMapped]
+        public string CarBrandText { get; set; }
+        [NotMapped]
+        public string CarModelText { get; set; }
     }
 }

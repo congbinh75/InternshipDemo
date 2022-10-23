@@ -24,8 +24,7 @@ namespace service.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=localhost;Database=demo;Username=postgres;Password=password");
+                optionsBuilder.UseNpgsql("Server=host.docker.internal;Port=5432;Database=demo;Username=postgres;Password=password");
             }
         }
 
@@ -50,17 +49,15 @@ namespace service.Models
 
             modelBuilder.Entity<ContractsCovers>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.HasOne(d => d.Contract)
                     .WithMany(p => p.ContractsCovers)
                     .HasForeignKey(d => d.ContractId)
-                    .HasConstraintName("ContractId");
+                    .HasConstraintName("ContractsId");
 
                 entity.HasOne(d => d.CoverNameNavigation)
                     .WithMany(p => p.ContractsCovers)
                     .HasForeignKey(d => d.CoverName)
-                    .HasConstraintName("ContractName");
+                    .HasConstraintName("ContractsCovers");
             });
 
             modelBuilder.Entity<MasterDatas>(entity =>

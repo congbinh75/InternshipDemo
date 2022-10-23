@@ -15,8 +15,19 @@ namespace service.Services
             DbContext = new demoContext();
         }
 
+        public async Task<List<Contracts>> Get()
+        {
+            var result = await DbContext.Contracts.ToListAsync();
+            return result;
+        }
+
         public async Task<List<Contracts>> Search(string keyword)
         {
+            if (keyword == null)
+            {
+                var all = await DbContext.Contracts.ToListAsync();
+                return all;
+            }
             var result = await DbContext.Contracts.Where(x => x.ContractNumber.Contains(keyword) ||
                                                               x.CertificateNumber.Contains(keyword) ||
                                                               x.ClientName.Contains(keyword)).ToListAsync();
@@ -25,7 +36,16 @@ namespace service.Services
 
         public async Task<Contracts> Get(string id)
         {
-            var result = await DbContext.Contracts.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var result = await DbContext.Contracts.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+
+            result.CarBrandText = DbContext.MasterDatas.Where(x => x.Id.Equals(result.CarBrand)).FirstOrDefault().Name;
+            result.CarModelText = DbContext.MasterDatas.Where(x => x.Id.Equals(result.CarModel)).FirstOrDefault().Name;
+
+            foreach (var item in result.ContractsCovers)
+            {
+                item.ContractNameText = DbContext.MasterDatas.Where(x => x.Id.Equals(item.CoverName)).FirstOrDefault().Name;
+            }
+
             return result;
         }
     }

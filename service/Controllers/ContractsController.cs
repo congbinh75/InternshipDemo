@@ -6,17 +6,24 @@ using System.Threading.Tasks;
 
 namespace service.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class ContractsController : ControllerBase
     {
         private readonly ContractsService contractsService;
-        public ContractsController(demoContext dbContext) 
+        public ContractsController(demoContext dbContext)
         {
             contractsService = new ContractsService();
         }
 
         [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await contractsService.Get();
+            return new ObjectResult(result);
+        }
+
+        [HttpGet("{keyword}")]
         public async Task<IActionResult> Search(string keyword)
         {
             var result = await contractsService.Search(keyword);
